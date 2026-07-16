@@ -104,6 +104,24 @@ footer a{color:var(--ink);text-decoration:none}
   nav .links a:not(.cta){display:none}.strip{gap:26px}
   section{padding:56px 0}.sticky-call{display:block}
 }
+
+/* ——— editorial polish ——— */
+.hero{padding:110px 0 116px;position:relative}
+.hero .wrap{position:relative}
+.hero .wrap:before{content:'';position:absolute;inset:-34px 8%;border:1px solid rgba(185,146,71,.35);pointer-events:none}
+.hero h1{font-size:62px}
+nav .wrap{height:78px}
+.prop{transition:transform .25s,box-shadow .25s;position:relative}
+.prop:hover{transform:translateY(-5px);box-shadow:0 30px 55px -26px rgba(0,0,0,.35)}
+.prop .ph{height:210px;position:relative;background:linear-gradient(155deg,#151515 0%,#2E2A22 60%,#4A3E27 100%)}
+.prop .ph:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 78% 18%,rgba(185,146,71,.35),transparent 55%)}
+.prop .ribbon{position:absolute;top:16px;left:16px;background:var(--gold);color:#111;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;z-index:2}
+.prop .price{font-size:19px;font-family:'Cormorant Garamond';font-weight:700}
+.step{transition:background .25s}
+.step:hover{background:var(--cream)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(max-width:900px){.hero h1{font-size:38px}.hero .wrap:before{inset:-20px 2%}}
 </style>
 </head>
 <body>
@@ -221,6 +239,10 @@ footer a{color:var(--ink);text-decoration:none}
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
 const API='https://zfflgvjnkcjnbwydurlp.supabase.co/functions/v1/public';
+const PREVIEW=false;
+const SAMPLE=[{address:'2215 Chelsea Dr, Kansas City, MO',beds:2,baths:1,price:132000},
+{address:'5310 Askew Ave, Kansas City, MO',beds:3,baths:2,price:172000},
+{address:'3906 Wabash Ave, Kansas City, MO',beds:3,baths:1,price:185000}];
 function sendLead(f,src){
   const d=Object.fromEntries(new FormData(f).entries());
   d.source='Owner Finance KC — '+src; d.page=location.pathname;
@@ -230,17 +252,22 @@ function sendLead(f,src){
     .catch(()=>{btn.disabled=false;btn.textContent='Try Again';});
   return false;
 }
-fetch(API+'?props=1').then(r=>r.json()).then(o=>{
+function renderProps(o){
   const g=document.getElementById('pgrid');
   const ps=(o.properties||[]);
   if(!ps.length){g.innerHTML='<div class="empty">New homes are being prepared now — <a href="#apply" style="color:var(--gold);font-weight:700">get pre-qualified</a> and you\'ll be first in line when they list.</div>';return;}
-  g.innerHTML=ps.map(p=>'<div class="prop"><div class="ph">⌂</div><div class="bd">'+
+  g.innerHTML=ps.map(p=>'<div class="prop rv in"><div class="ph"><span class="ribbon">Owner Financing</span>⌂</div><div class="bd">'+
     '<div class="addr">'+p.address+'</div>'+
     '<div class="meta">'+(p.beds?p.beds+' BD':'')+(p.baths?' · '+p.baths+' BA':'')+' · Owner Financing</div>'+
     (p.price?'<div class="price">$'+(+p.price).toLocaleString()+'</div>':'')+
     '<a class="btn" href="#apply" onclick="prefillProp(\''+p.address.replace(/'/g,"\\'")+'\')">Ask About This Home</a>'+
     '</div></div>').join('');
-}).catch(()=>{document.getElementById('pgrid').innerHTML='<div class="empty">Call us for current homes: (913) 513-2656</div>';});
+}
+if(PREVIEW){renderProps({properties:SAMPLE.map(p=>({...p}))});}
+else fetch(API+'?props=1').then(r=>r.json()).then(renderProps).catch(()=>{document.getElementById('pgrid').innerHTML='<div class="empty">Call us for current homes: (913) 513-2656</div>';});
+document.querySelectorAll('.step,.checks li,.faq details').forEach(el=>el.classList.add('rv'));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 function prefillProp(addr){
   const t=document.querySelector('#apply textarea[name=msg]');
   if(t)t.value='I\'m interested in '+addr;
