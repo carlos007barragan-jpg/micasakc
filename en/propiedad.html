@@ -234,9 +234,9 @@ function sendShowing(f){
 </div>
 <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:20px">
 <span style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold)" id="mc-out">$—</span>
-<span style="color:#5A5346;font-size:13px">/month estimated principal &amp; interest</span>
+<span style="color:#5A5346;font-size:13px">/month estimated — includes estimated taxes &amp; insurance, the way our contracts work</span>
 </div>
-<div style="font-size:11.5px;color:#8A8070;margin-top:10px">Estimate only, not an offer. Taxes and insurance are added separately. Real terms vary by home and down payment — ask us about yours.</div>
+<div style="font-size:11.5px;color:#8A8070;margin-top:10px">Estimate only, not an offer. In our model the monthly payment includes taxes and insurance; we estimate them here at 1.6%/yr. Closing costs are added to the down payment. Real terms vary by home — ask us about yours.</div>
 </div>
 </div></section>
 <script>
@@ -244,7 +244,7 @@ function sendShowing(f){
 function mcalc(){const P=Math.max(0,(+($('mc-price').value)||0)-(+($('mc-down').value)||0));
 const r=(+($('mc-rate').value)||0)/100/12, n=(+($('mc-years').value)||30)*12;
 const pi=r>0?P*r/(1-Math.pow(1+r,-n)):P/n;
-$('mc-out').textContent='$'+Math.round(pi).toLocaleString();}
+var ti=(+($('mc-price').value)||0)*0.016/12;$('mc-out').textContent='$'+Math.round(pi+ti).toLocaleString();}
 ['mc-price','mc-down','mc-rate','mc-years'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',mcalc)});
 if($('mc-price'))mcalc();window.mcalcSet=function(p){if($('mc-price')){$('mc-price').value=p;mcalc();}}
 })();

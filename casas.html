@@ -168,9 +168,9 @@ body.navopen nav .links a.cta{margin-top:10px;text-align:center;border-bottom:no
 </div>
 <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:20px">
 <span style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold)" id="mc-out">$—</span>
-<span style="color:#5A5346;font-size:13px">/mes estimado de capital e inter&eacute;s</span>
+<span style="color:#5A5346;font-size:13px">/mes estimado — incluye impuestos y seguro estimados, como en nuestros contratos</span>
 </div>
-<div style="font-size:11.5px;color:#8A8070;margin-top:10px">Solo un estimado, no una oferta. Impuestos y seguro se suman aparte. Los t&eacute;rminos reales var&iacute;an por casa y por enganche — preg&uacute;ntenos los de la suya.</div>
+<div style="font-size:11.5px;color:#8A8070;margin-top:10px">Solo un estimado, no una oferta. En nuestro modelo el pago mensual incluye impuestos y seguro; aqu&iacute; los estimamos al 1.6% anual. Al enganche se suman gastos de cierre. Los t&eacute;rminos reales var&iacute;an por casa — preg&uacute;ntenos los de la suya.</div>
 </div>
 </div></section>
 <script>
@@ -178,7 +178,7 @@ body.navopen nav .links a.cta{margin-top:10px;text-align:center;border-bottom:no
 function mcalc(){const P=Math.max(0,(+($('mc-price').value)||0)-(+($('mc-down').value)||0));
 const r=(+($('mc-rate').value)||0)/100/12, n=(+($('mc-years').value)||30)*12;
 const pi=r>0?P*r/(1-Math.pow(1+r,-n)):P/n;
-$('mc-out').textContent='$'+Math.round(pi).toLocaleString();}
+var ti=(+($('mc-price').value)||0)*0.016/12;$('mc-out').textContent='$'+Math.round(pi+ti).toLocaleString();}
 ['mc-price','mc-down','mc-rate','mc-years'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',mcalc)});
 if($('mc-price'))mcalc();window.mcalcSet=function(p){if($('mc-price')){$('mc-price').value=p;mcalc();}}
 })();

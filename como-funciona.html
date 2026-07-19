@@ -155,6 +155,37 @@ body.navopen nav .links a.cta{margin-top:10px;text-align:center;border-bottom:no
 <button class="btn gold" style="width:100%;justify-content:center">Pre-Calificarme &rarr;</button>
 <div class="ok" style="display:none;background:#EAF6EE;border:1px solid #9FD3AF;color:#1F6B3A;padding:13px;font-size:13.5px;font-weight:700;margin-top:10px;border-radius:10px">Recibido. Le llamamos hoy.</div>
 </form></div></div></section>
+
+<section id="desglose" style="background:#fff"><div class="wrap" style="max-width:920px">
+<div class="over" style="color:var(--gold)">El Desglose</div>
+<h2>C&oacute;mo funcionan los n&uacute;meros — paso a paso</h2>
+<p style="color:#5A5346;max-width:640px;margin-top:8px">Sin letra chica. As&iacute; se arma una compra t&iacute;pica con nosotros:</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px">
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">1 &middot; Al Firmar</div><b>Enganche + gastos de cierre</b><p style="margin-top:6px;font-size:14px">Su enganche (var&iacute;a por casa) m&aacute;s los gastos de cierre. Es todo lo que necesita para empezar — sin banco.</p></div>
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">2 &middot; El Contrato</div><b>Contrato por escritura</b><p style="margin-top:6px;font-size:14px">Firma un contrato de owner finance con amortizaci&oacute;n a 30 a&ntilde;os. T&eacute;rminos claros, por escrito, en su idioma.</p></div>
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">3 &middot; Cada Mes</div><b>Un solo pago</b><p style="margin-top:6px;font-size:14px">Su pago mensual incluye impuestos y seguro. Un n&uacute;mero, sin sorpresas, directo — sin banco de por medio.</p></div>
+</div>
+
+<div class="tcard" style="margin-top:26px;padding:26px;background:#fff;border:1px solid #E7E2D6;border-radius:14px">
+<b style="font-size:19px">Pruebe escenarios de enganche</b>
+<p style="font-size:13.5px;color:#5A5346;margin-top:6px">La misma casa con tres enganches distintos — vea c&oacute;mo cambia su pago mensual.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:14px">
+<label style="font-size:12px;color:#5A5346">Precio de la casa<input id="sc-price" type="number" value="200000" style="width:100%;padding:11px;margin-top:5px;border:1px solid #E7E2D6"></label>
+<label style="font-size:12px;color:#5A5346">Tasa %<input id="sc-rate" type="number" step="0.1" value="9.0" style="width:100%;padding:11px;margin-top:5px;border:1px solid #E7E2D6"></label>
+</div>
+<div id="sc-table" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px"></div>
+<div style="font-size:11.5px;color:#8A8070;margin-top:12px">Pagos a 30 a&ntilde;os e incluyen impuestos y seguro estimados (1.6% anual). Al enganche se suman gastos de cierre. Cada casa tiene su propia tasa y enganche m&iacute;nimo.</div>
+</div>
+</div></section>
+<script>
+(function(){const $=i=>document.getElementById(i);
+function sc(){const p=+($('sc-price').value)||0,rt=(+($('sc-rate').value)||9)/100/12,n=360;
+const downs=[Math.round(p*0.05),Math.round(p*0.10),Math.round(p*0.15)];
+$('sc-table').innerHTML=downs.map(d=>{const P=Math.max(0,p-d);const pi=rt>0?P*rt/(1-Math.pow(1+rt,-n)):P/n;const ti=p*0.016/12;
+return '<div style="border:1px solid #E7E2D6;border-radius:12px;padding:16px;text-align:center;background:#FAF8F4"><div style="font-size:12px;color:#8A8070">Enganche $'+d.toLocaleString()+'</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--gold)">$'+Math.round(pi+ti).toLocaleString()+'</div><div style="font-size:11px;color:#8A8070">/mes est.</div></div>';}).join('');}
+['sc-price','sc-rate'].forEach(i=>{const e=$(i);if(e)e.addEventListener('input',sc)});
+if($('sc-price'))sc();})();
+</script>
 <section id="requisitos" style="background:#fff"><div class="wrap" style="max-width:860px">
 <div class="over" style="color:var(--gold)">Para Empezar</div>
 <h2>Lo que necesita — y lo que NO necesita</h2>

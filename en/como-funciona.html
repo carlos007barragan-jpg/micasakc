@@ -155,6 +155,37 @@ body.navopen nav .links a.cta{margin-top:10px;text-align:center;border-bottom:no
 <button class="btn gold" style="width:100%;justify-content:center">Get Pre-Qualified &rarr;</button>
 <div class="ok" style="display:none;background:#EAF6EE;border:1px solid #9FD3AF;color:#1F6B3A;padding:13px;font-size:13.5px;font-weight:700;margin-top:10px;border-radius:10px">Received. We’ll call you today.</div>
 </form></div></div></section>
+
+<section id="desglose" style="background:#fff"><div class="wrap" style="max-width:920px">
+<div class="over" style="color:var(--gold)">The Breakdown</div>
+<h2>How the numbers work — step by step</h2>
+<p style="color:#5A5346;max-width:640px;margin-top:8px">No fine print. Here&rsquo;s how a typical purchase comes together:</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px">
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">1 &middot; At Signing</div><b>Down payment + closing costs</b><p style="margin-top:6px;font-size:14px">Your down payment (varies by home) plus closing costs. That&rsquo;s all it takes to start — no bank.</p></div>
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">2 &middot; The Contract</div><b>Contract for deed</b><p style="margin-top:6px;font-size:14px">You sign an owner finance agreement on a 30-year amortization. Clear terms, in writing, in your language.</p></div>
+<div class="tcard" style="background:#FAF8F4;border:1px solid #E7E2D6;border-radius:14px;padding:20px"><div class="over" style="color:var(--gold)">3 &middot; Every Month</div><b>One single payment</b><p style="margin-top:6px;font-size:14px">Your monthly payment includes taxes and insurance. One number, no surprises, paid directly — no bank in the middle.</p></div>
+</div>
+
+<div class="tcard" style="margin-top:26px;padding:26px;background:#fff;border:1px solid #E7E2D6;border-radius:14px">
+<b style="font-size:19px">Try down payment scenarios</b>
+<p style="font-size:13.5px;color:#5A5346;margin-top:6px">The same home with three different down payments — see how your monthly payment changes.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:14px">
+<label style="font-size:12px;color:#5A5346">Home price<input id="sc-price" type="number" value="200000" style="width:100%;padding:11px;margin-top:5px;border:1px solid #E7E2D6"></label>
+<label style="font-size:12px;color:#5A5346">Rate %<input id="sc-rate" type="number" step="0.1" value="9.0" style="width:100%;padding:11px;margin-top:5px;border:1px solid #E7E2D6"></label>
+</div>
+<div id="sc-table" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px"></div>
+<div style="font-size:11.5px;color:#8A8070;margin-top:12px">Payments are 30-year and include estimated taxes and insurance (1.6%/yr). Closing costs are added to the down payment. Each home has its own rate and minimum down payment.</div>
+</div>
+</div></section>
+<script>
+(function(){const $=i=>document.getElementById(i);
+function sc(){const p=+($('sc-price').value)||0,rt=(+($('sc-rate').value)||9)/100/12,n=360;
+const downs=[Math.round(p*0.05),Math.round(p*0.10),Math.round(p*0.15)];
+$('sc-table').innerHTML=downs.map(d=>{const P=Math.max(0,p-d);const pi=rt>0?P*rt/(1-Math.pow(1+rt,-n)):P/n;const ti=p*0.016/12;
+return '<div style="border:1px solid #E7E2D6;border-radius:12px;padding:16px;text-align:center;background:#FAF8F4"><div style="font-size:12px;color:#8A8070">Enganche $'+d.toLocaleString()+'</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--gold)">$'+Math.round(pi+ti).toLocaleString()+'</div><div style="font-size:11px;color:#8A8070">/mes est.</div></div>';}).join('');}
+['sc-price','sc-rate'].forEach(i=>{const e=$(i);if(e)e.addEventListener('input',sc)});
+if($('sc-price'))sc();})();
+</script>
 <section id="requisitos" style="background:#fff"><div class="wrap" style="max-width:860px">
 <div class="over" style="color:var(--gold)">To Get Started</div>
 <h2>What you need — and what you DON&rsquo;T</h2>
