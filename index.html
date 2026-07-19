@@ -124,13 +124,30 @@ nav .wrap{height:78px}
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
 @media(max-width:900px){.hero h1{font-size:38px}.hero .wrap:before{inset:-20px 2%}}
+
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:20px;width:42px;height:42px;cursor:pointer}
+@media(max-width:900px){
+.burger{display:grid;place-items:center}
+nav .links{display:none}
+body.navopen nav .links{display:flex;position:fixed;top:72px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:10px 20px 20px;border-bottom:1px solid var(--line);box-shadow:0 30px 50px -20px rgba(0,0,0,.35);z-index:49}
+body.navopen nav .links a{display:block!important;padding:14px 4px;font-size:15px;border-bottom:1px solid var(--line)}
+body.navopen nav .links a.cta{margin-top:10px;text-align:center;border-bottom:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+.wafab{position:fixed;right:16px;bottom:16px;z-index:70;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(0,0,0,.4);transition:transform .15s}
+.wafab:hover{transform:scale(1.08)}
+@media(max-width:900px){.wafab{bottom:84px}}
+
+.stepph{height:150px;background-size:cover;background-position:center;border-radius:0;margin:-32px -28px 20px;position:relative}
+.stepph:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(17,17,17,.45))}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
   <a class="logo" href="/">MI CASA <span>KC</span></a>
-  <div class="links">
+  <button class="burger" aria-label="Menu" onclick="document.body.classList.toggle('navopen')">☰</button><div class="links">
     <a href="#how">Cómo Funciona</a><a href="#homes">Casas Disponibles</a><a href="#about">Quiénes Somos</a><a href="#faq">Preguntas</a><a href="tel:+19135132656" style="color:var(--gold)">913.513.2656</a><a href="#apply" class="cta">Pre-Califíquese</a>
   </div>
 </div></nav>
@@ -159,9 +176,9 @@ nav .wrap{height:78px}
     <h2 class="title">Tres pasos hasta sus llaves</h2>
     <p class="sub">Simple, transparente y con documentos en regla — cada acuerdo se cierra como debe ser.</p>
     <div class="steps">
-      <div class="step"><div class="n">01</div><h3>Cuéntenos su presupuesto</h3><p>Díganos cuánto tiene de enganche y qué pago mensual le queda cómodo. Calificamos por su capacidad de pago — no por un puntaje de crédito.</p></div>
-      <div class="step"><div class="n">02</div><h3>Visite casas a su medida</h3><p>Le mostramos casas de nuestro propio inventario en Kansas City donde los números ya funcionan para su presupuesto.</p></div>
-      <div class="step"><div class="n">03</div><h3>Firme y múdese</h3><p>Términos claros por escrito — precio, enganche y mensualidad. Cierre registrado correctamente, con su estado de intereses cada año.</p></div>
+      <div class="step"><div class="stepph" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&auto=format&fit=crop')"></div><div class="n">01</div><h3>Cuéntenos su presupuesto</h3><p>Díganos cuánto tiene de enganche y qué pago mensual le queda cómodo. Calificamos por su capacidad de pago — no por un puntaje de crédito.</p></div>
+      <div class="step"><div class="stepph" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80&auto=format&fit=crop')"></div><div class="n">02</div><h3>Visite casas a su medida</h3><p>Le mostramos casas de nuestro propio inventario en Kansas City donde los números ya funcionan para su presupuesto.</p></div>
+      <div class="step"><div class="stepph" style="background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop')"></div><div class="n">03</div><h3>Firme y múdese</h3><p>Términos claros por escrito — precio, enganche y mensualidad. Cierre registrado correctamente, con su estado de intereses cada año.</p></div>
     </div>
   </div>
 </section>
@@ -282,6 +299,10 @@ function prefillProp(addr){
   const t=document.querySelector('#apply textarea[name=msg]');
   if(t)t.value='I\'m interested in '+addr;
 }
+</script>
+<a class="wafab" href="https://wa.me/19135132656?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20casas%20con%20financiamiento%20del%20due%C3%B1o" target="_blank" rel="noopener" aria-label="WhatsApp Mi Casa KC"><svg viewBox="0 0 32 32" width="26" height="26" fill="#fff"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.3 7L4 29l7.2-2.2c1.9 1 4 1.6 6.3 1.6h.5c6.6 0 12-5.4 12-12S22.6 3 16 3zm5.9 17c-.3.8-1.6 1.5-2.2 1.6-.6.1-1.3.2-3.7-.8-3.1-1.3-5.1-4.4-5.3-4.6-.2-.2-1.3-1.7-1.3-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5.3.7.9 2.3 1 2.4.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.2.4 1 1.7 2.2 2.7 1.5 1.3 2.8 1.7 3.2 1.9.4.2.6.2.9-.1.2-.3 1-1.2 1.3-1.6.3-.4.5-.3.9-.2.4.1 2.3 1.1 2.7 1.3.4.2.6.3.7.5.1.1.1.9-.2 1.7z"/></svg></a>
+<script>
+document.querySelectorAll('nav .links a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('navopen')));
 </script>
 </body>
 </html>
